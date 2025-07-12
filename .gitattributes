@@ -1,0 +1,55 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# C++ source files
+*.cpp text diff=cpp
+*.h text diff=cpp
+*.hpp text diff=cpp
+
+# Visual Studio files
+*.sln text eol=crlf
+*.vcproj text eol=crlf
+*.vcxproj text eol=crlf
+*.vcxproj.filters text eol=crlf
+*.props text eol=crlf
+*.proj text eol=crlf
+*.targets text eol=crlf
+
+# Binary files (no EOL conversion)
+*.png binary
+*.jpg binary
+*.dll binary
+*.lib binary
+*.exe binary
+*.asi binary
+*.ico binary
+*.bmp binary
+
+# Documents
+*.md text
+*.txt text
+*.pdf binary
+
+# Scripts
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+*.sh text eol=lf
+
+# Make git diff show function name
+*.c diff=cpp
+*.cc diff=cpp
+*.cpp diff=cpp
+*.h diff=cpp
+*.hpp diff=cpp
+*.cs diff=csharp
+*.m diff=objc
+
+# Languages for GitHub statistics
+*.cpp linguist-language=C++
+*.h linguist-language=C++
+*.hpp linguist-language=C++
+
+# Exclude files from GitHub statistics
+README.md linguist-documentation
+LICENSE linguist-documentation
+*.txt linguist-documentation 

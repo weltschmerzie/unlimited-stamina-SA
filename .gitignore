@@ -1,0 +1,56 @@
+# Build directories
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+Win32/
+*.exe
+*.dll
+*.asi
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sdf
+*.opensdf
+*.opendb
+*.VC.db
+*.VC.opendb
+ipch/
+*.aps
+*.ncb
+*.idb
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.log
+*.tlog
+*.lastbuildstate
+*.obj
+*.iobj
+*.ipdb
+*.res
+*.manifest
+
+# Temporary/backup files
+*~
+*.swp
+*.bak
+Thumbs.db
+Desktop.ini
+
+# GTA related files
+*.cfg
+*.set
+*.tmp
+*.dat
+*.img
+*.gxt
+
+# Project specific
+unlimited-stamina.ini 
