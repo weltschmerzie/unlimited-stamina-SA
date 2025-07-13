@@ -1,39 +1,34 @@
 # Unlimited Stamina - GTA San Andreas Plugin
 
-A plugin that provides unlimited stamina for CJ in GTA San Andreas, allowing you to run, sprint, swim, and cycle indefinitely without getting tired.
+A plugin that provides unlimited stamina for CJ in GTA San Andreas, allowing you to run, sprint, swim, and cycle indefinitely without getting tired. Compatible with both single player and SA-MP (San Andreas Multiplayer).
 
 ## Features
 
 - **Unlimited Stamina**: Never run out of stamina while running, swimming, or cycling
-- **Toggle On/Off**: Enable or disable the mod with a keypress
-- **Configuration**: Customizable settings via INI file
+- **Simple Configuration**: Enable or disable via INI file
 - **Non-Intrusive**: No permanent changes to game files
-- **Compatible**: Works with most other mods
+- **Compatible**: Works with both single player and SA-MP
 
 ## Installation
 
 1. Make sure you have [GTA San Andreas](https://store.steampowered.com/app/12120/Grand_Theft_Auto_San_Andreas/) installed
 2. Install [Plugin SDK](https://github.com/DK22Pac/plugin-sdk) if you haven't already
 3. Copy the `unlimited-stamina-SA.asi` file to your GTA San Andreas installation folder
-4. Launch the game and enjoy unlimited stamina!
-
-## Controls
-
-- **F7**: Toggle unlimited stamina on/off
-- **F8**: Toggle notification messages on/off
+4. Launch the game (single player or SA-MP) and enjoy unlimited stamina!
 
 ## Configuration
 
-The plugin creates a configuration file `unlimited-stamina.ini` in your GTA San Andreas folder with the following options:
+The plugin creates a configuration file `unlimited-stamina.ini` in your GTA San Andreas folder with the following option:
 
 ```ini
 [Settings]
 # Unlimited Stamina Plugin Configuration
+# Set EnableUnlimitedStamina=true to enable unlimited stamina
+# Set EnableUnlimitedStamina=false to disable unlimited stamina
 EnableUnlimitedStamina=true
-ShowNotifications=true
 ```
 
-You can edit this file with any text editor to change the default settings.
+You can edit this file with any text editor to enable or disable the unlimited stamina feature.
 
 ## Building from Source
 
@@ -54,12 +49,12 @@ You can edit this file with any text editor to change the default settings.
 
 This plugin works by:
 - Setting the player's stamina stat to maximum value
-- Setting the player's stamina value in the player data structure
-- Using script commands to prevent the player from getting tired
+- Using reliable methods that work across both single player and SA-MP
 
 ## Compatibility
 
 - Compatible with GTA San Andreas v1.0 US
+- Compatible with SA-MP (San Andreas Multiplayer)
 - May work with other versions, but not tested
 
 ## Troubleshooting
@@ -69,9 +64,10 @@ This plugin works by:
 - Check if you have ASI Loader installed
 - Make sure the .asi file is in the correct directory
 
-**Problem**: The mod doesn't work even when enabled
+**Problem**: The mod doesn't work even when enabled in the INI file
 - Make sure there are no conflicting mods
 - Try reinstalling the plugin
+- Verify that unlimited-stamina.ini has EnableUnlimitedStamina=true
 
 ## License
 

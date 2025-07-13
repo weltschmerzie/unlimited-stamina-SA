@@ -5,34 +5,29 @@
  * 
  * Configuration management for the Unlimited Stamina plugin.
  * Handles loading and saving of configuration settings.
+ * Uses mINI library for INI file handling.
  */
 
+#include "../external/mINI/src/mini/ini.h"
 #include <string>
-#include <fstream>
-#include <map>
 
 class Config {
 private:
     // Config file path
     static const std::string CONFIG_FILE_NAME;
     
-    // Settings map
-    std::map<std::string, std::string> m_settings;
-    
     // Settings
     bool m_enableUnlimitedStamina;
-    bool m_showNotifications;
+    
+    // mINI objects
+    mutable mINI::INIFile m_iniFile;
+    mINI::INIStructure m_ini;
     
     // Singleton instance
     static Config* s_instance;
     
     // Private constructor for singleton
     Config();
-    
-    // Helper methods for parsing
-    void ParseLine(const std::string& line);
-    std::string ToString(bool value) const;
-    bool ToBool(const std::string& value) const;
 
 public:
     /**
@@ -53,7 +48,4 @@ public:
     // Getters and setters
     bool IsUnlimitedStaminaEnabled() const { return m_enableUnlimitedStamina; }
     void SetUnlimitedStamina(bool enable) { m_enableUnlimitedStamina = enable; }
-    
-    bool ShowNotifications() const { return m_showNotifications; }
-    void SetShowNotifications(bool show) { m_showNotifications = show; }
 }; 

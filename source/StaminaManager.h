@@ -43,8 +43,8 @@ public:
     void Process();
     
     /**
-     * Draws the notification text on screen
-     * Shows that the unlimited stamina mod is active
+     * Legacy method for notification support, now empty
+     * Kept for compatibility with existing code
      */
     void DrawNotification() const;
     

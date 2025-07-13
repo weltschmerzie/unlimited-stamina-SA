@@ -2,13 +2,10 @@
  * Config.cpp
  * 
  * Implementation of the Config class for the Unlimited Stamina plugin.
+ * Uses mINI library for INI file handling.
  */
 
 #include "Config.h"
-#include <fstream>
-#include <sstream>
-#include <filesystem>
-#include <CFileMgr.h>
 
 // Initialize static members
 Config* Config::s_instance = nullptr;
@@ -16,7 +13,7 @@ const std::string Config::CONFIG_FILE_NAME = "unlimited-stamina.ini";
 
 Config::Config() :
     m_enableUnlimitedStamina(true),
-    m_showNotifications(true)
+    m_iniFile(CONFIG_FILE_NAME)
 {
     // Constructor initializes with default values
     // Actual values will be loaded from ini file if available
@@ -31,83 +28,38 @@ Config& Config::GetInstance() {
 }
 
 void Config::Load() {
-    // Clear settings map
-    m_settings.clear();
+    // Try to read from existing ini file
+    bool fileExists = m_iniFile.read(m_ini);
     
-    // Set defaults
-    m_enableUnlimitedStamina = true;
-    m_showNotifications = true;
-    
-    // Open file for reading
-    std::ifstream file(CONFIG_FILE_NAME);
-    if (!file.is_open()) {
-        // File doesn't exist, create with default values
+    // If file doesn't exist or couldn't be read, use default values
+    if (!fileExists) {
+        m_enableUnlimitedStamina = true;
         Save();
         return;
     }
-
-    // Read file line by line
-    std::string line;
-    while (std::getline(file, line)) {
-        ParseLine(line);
-    }
-    file.close();
     
-    // Apply settings from map
-    auto it = m_settings.find("EnableUnlimitedStamina");
-    if (it != m_settings.end()) {
-        m_enableUnlimitedStamina = ToBool(it->second);
-    }
-    
-    it = m_settings.find("ShowNotifications");
-    if (it != m_settings.end()) {
-        m_showNotifications = ToBool(it->second);
+    // Read values from ini structure using get() method
+    if (m_ini.has("Settings") && m_ini.get("Settings").has("EnableUnlimitedStamina")) {
+        std::string enabledStr = m_ini.get("Settings").get("EnableUnlimitedStamina");
+        m_enableUnlimitedStamina = (enabledStr == "true" || enabledStr == "1" || enabledStr == "yes");
+    } else {
+        // Key doesn't exist, use default
+        m_enableUnlimitedStamina = true;
     }
 }
 
 void Config::Save() const {
-    // Create or open ini file
-    std::ofstream file(CONFIG_FILE_NAME);
-    if (!file.is_open()) {
-        return;
-    }
+    // Create a mutable copy of the INI structure for modification
+    mINI::INIStructure iniCopy = m_ini;
     
-    // Write header
-    file << "# Unlimited Stamina Plugin Configuration" << std::endl;
-    file << "[Settings]" << std::endl;
+    // Update values in the Settings section
+    iniCopy["Settings"]["EnableUnlimitedStamina"] = m_enableUnlimitedStamina ? "true" : "false";
     
-    // Write settings
-    file << "EnableUnlimitedStamina=" << ToString(m_enableUnlimitedStamina) << std::endl;
-    file << "ShowNotifications=" << ToString(m_showNotifications) << std::endl;
+    // Add comments
+    iniCopy["Settings"][";Unlimited Stamina Plugin Configuration"] = "";
+    iniCopy["Settings"][";Set EnableUnlimitedStamina=true to enable unlimited stamina"] = "";
+    iniCopy["Settings"][";Set EnableUnlimitedStamina=false to disable unlimited stamina"] = "";
     
-    // Close file
-    file.close();
-}
-
-void Config::ParseLine(const std::string& line) {
-    // Skip comments and empty lines
-    if (line.empty() || line[0] == '#' || line[0] == '[') {
-        return;
-    }
-    
-    // Find key-value separator
-    size_t pos = line.find('=');
-    if (pos == std::string::npos) {
-        return;
-    }
-    
-    // Extract key and value
-    std::string key = line.substr(0, pos);
-    std::string value = line.substr(pos + 1);
-    
-    // Store in map
-    m_settings[key] = value;
-}
-
-std::string Config::ToString(bool value) const {
-    return value ? "true" : "false";
-}
-
-bool Config::ToBool(const std::string& value) const {
-    return value == "true" || value == "1" || value == "yes";
+    // Write to file using the copy
+    m_iniFile.write(iniCopy, true);  // true for pretty formatting
 } 
