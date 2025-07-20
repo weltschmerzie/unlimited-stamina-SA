@@ -1,4 +1,3 @@
-# Build directories
 bin/
 obj/
 Debug/
@@ -9,8 +8,6 @@ Win32/
 *.exe
 *.dll
 *.asi
-
-# Visual Studio files
 .vs/
 *.suo
 *.user
@@ -33,24 +30,6 @@ ipch/
 *.lastbuildstate
 *.obj
 *.iobj
-*.ipdb
 *.res
 *.manifest
-
-# Temporary/backup files
-*~
-*.swp
-*.bak
-Thumbs.db
-Desktop.ini
-
-# GTA related files
-*.cfg
-*.set
-*.tmp
-*.dat
-*.img
-*.gxt
-
-# Project specific
 unlimited-stamina.ini 
